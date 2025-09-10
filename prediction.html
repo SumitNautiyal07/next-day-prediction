@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Next Day Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f7f7f7;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+      margin: 15px 0;
+    }
+
+    button {
+      background: green;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: darkgreen;
+    }
+
+    #output {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      min-height: 150px;
+    }
+
+    .success {
+      color: darkblue;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Next Day Predictor</h1>
+
+  <label for="day">Select a day</label><br>
+  <select id="day">
+    <option value="">-- Select a Day --</option>
+    <option>Sunday</option>
+    <option>Monday</option>
+    <option>Tuesday</option>
+    <option>Wednesday</option>
+    <option>Thursday</option>
+    <option>Friday</option>
+    <option>Saturday</option>
+  </select>
+  <br><br>
+
+  <button onclick="predictNextDay()">Predict Next Day</button>
+
+  <div id="output"></div>
+
+  <script>
+    function predictNextDay() {
+      const day = document.getElementById("day").value;
+      const output = document.getElementById("output");
+      output.innerHTML = "";
+
+      if (!day) {
+        output.innerHTML = "⚠️ Please select a day first!";
+        return;
+      }
+
+      const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      const nextDay = days[(days.indexOf(day) + 1) % 7];
+
+      // messages with duration (how long each message stays before erasing)
+      const messages = [
+        { text: "hacking into nasa's database...", duration: 5000 },
+        { text: "analysing your incognito history...", duration: 7000 },
+        { text: "bole Jo koyal yaado m.....thala for a reason(7)", duration: 6000 },
+        { text: "running quantum mechanics algorithms...", duration: 6000 },
+        { text: "predicting tomorrow by applying best machine learning algorithms......", duration: 6000 }
+      ];
+
+      let totalTime = 0;
+
+      messages.forEach((msg, i) => {
+        setTimeout(() => {
+          output.innerHTML = `<p>${msg.text}</p>`;
+        }, totalTime);
+
+        totalTime += msg.duration;
+
+        setTimeout(() => {
+          output.innerHTML = ""; // erase after duration
+        }, totalTime);
+      });
+
+      // Final prediction after all messages
+      setTimeout(() => {
+        output.innerHTML = `<p style="color:darkred; font-size:22px;">${nextDay}</p>`;
+        output.innerHTML += `<p class="success">Prediction successful....Thala for a reason ✅</p>`;
+      }, totalTime + 1000);
+    }
+  </script>
+</body>
+</html>
